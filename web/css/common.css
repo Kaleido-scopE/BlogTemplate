@@ -1,0 +1,160 @@
+html {
+    height: 100%;
+    font-family: "Times New Roman", "宋体";
+}
+body {
+    height: 100%;
+    margin: 0 15%;
+}
+/*水平垂直居中容器*/
+.flex_container {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+/*水平分割线*/
+.horizontal_divider {
+    height: 1px;
+    width: 100%;
+    background: black;
+}
+/*浮动分隔元素*/
+.float_clearer {
+    clear: both;
+}
+/*导航栏块*/
+#nav {
+    height: 10%;
+    margin: 0;
+}
+/*导航栏元素默认样式*/
+#nav a {
+    padding: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+/*导航栏元素悬浮时样式*/
+#nav a:hover {
+    color: #80f0ff;
+    text-decoration: underline;
+}
+/*简要信息块*/
+#brief_info {
+    /*background: gray;*/
+    width: 25%;
+    height: 90%;
+    float: left;
+}
+/*简要信息内容块*/
+#brief_info_content {
+    margin-top: 25%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: white;
+    width: 80%;
+    height: 50%;
+}
+/*简要信息Header*/
+#brief_info_content_header {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: -9%;
+    width: 60%;
+    height: 12%;
+    background: black;
+    color: white;/*字体颜色*/
+}
+/*简要信息头像容器*/
+#avatar_container {
+    height: 75%;
+    border: 1px solid black;
+    padding-top: 20%;
+    text-align: center;
+}
+/*头像样式*/
+#avatar_container img {
+    width: 185px;
+    height: 185px;
+    margin-bottom: 40px;
+}
+/*个人签名样式*/
+#avatar_container p {
+    margin-top: 0;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+}
+/*登录输入框*/
+#login_input {
+    margin-top: 15%;
+}
+#login_input p {
+    text-align: center;
+}
+#login_input a {
+    color: black;
+    text-decoration: underline;
+    font-size: 20px;
+}
+#login_input a:hover {
+    color: #80f0ff;
+}
+#login_input_box {
+    padding: 8%;
+    border: 1px solid black;
+    height: 25%;
+    font-weight: bold;
+    visibility: hidden;
+}
+#login_input_box input[type="text"] {
+    width: 100%;
+    padding: 0;
+    font-size: 16px;
+}
+#login_input_box input[type="button"] {
+    float: right;
+    background: white;
+    border: 1px solid black;
+    margin-top: 3%;
+}
+/*内容块*/
+#content {
+    width: 65%;
+    padding-top: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    min-height: 87%;
+    float: left;
+}
+/*内容模块Header*/
+#content h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+/*文章内容*/
+#content_passage {
+    margin-top: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size: 20px;
+}
+#content_passage img {
+    /*按比例缩放图片*/
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+/*脚注块*/
+#footer {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}

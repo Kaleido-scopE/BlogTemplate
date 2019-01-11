@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script>
+        function transformInputBox() {
+            let input_box = document.getElementById("login_input_box");
+            let computedStyle = document.defaultView.getComputedStyle(input_box, null);
+            if (computedStyle.visibility === 'hidden')
+                input_box.style.visibility = 'visible';
+            else
+                input_box.style.visibility = 'hidden';
+        }
+    </script>
+    <title>Home - Lost Stars</title>
+</head>
+<body>
+<div id="nav" class="flex_container">
+    <a href="/home.html">HOME</a>
+    <a href="/about.html">ABOUT</a>
+    <a href="/experience.html">EXPERIENCE</a>
+    <a href="/awards.html">AWARDS</a>
+    <a href="/pictures.html">PICTURES</a>
+</div>
+<div class="horizontal_divider"></div>
+<div id="brief_info">
+    <div id="brief_info_content">
+        <div id="brief_info_content_header" class="flex_container">
+            <span>HELLO!</span>
+        </div>
+        <div id="avatar_container">
+            <img src="img/avatar.jpg" alt="Avatar"/>
+            <p>
+                We are all lost stars.
+            </p>
+            <p>
+                Trying to light up the dark.
+            </p>
+        </div>
+        <div id="login_input">
+            <p><a id="login_alink" href="#" onclick="transformInputBox()">LOG IN</a></p>
+            <div id="login_input_box">
+                <span>TEL:</span>
+                <br/>
+                <label for="tel">
+                    <input id="tel" type="text" />
+                </label>
+                <label for="get_code_button">
+                    <input id="get_code_button" type="button" value="Get Verification Code"/>
+                </label>
+                <br/>
+                <br/>
+                <br/>
+
+                <span>VERIFICATION CODE:</span>
+                <br/>
+                <label for="veri_code">
+                    <input id="veri_code" type="text" />
+                </label>
+                <label for="login_button">
+                    <input id="login_button" type="button" value="Login"/>
+                </label>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content">
+    <!--从这里起可定制-->
+    <h1>HERE IS</h1>
+    <div class="horizontal_divider"></div>
+    <div id="content_passage">
+        <p>A Boring Man.</p>
+        <p>Coding / Music / Film / Fiction / Photography / Music Game Player</p>
+        <img src="img/67.jpg" alt=""/>
+        <p id="content_passage_footer">
+            Good morning, and in case I don't see ya, good afternoon, good evening, and good night!
+        </p>
+        <span>—— The Truman Show</span>
+    </div>
+</div>
+<div class="float_clearer"></div>
+<div class="horizontal_divider"></div>
+<div id="footer">
+    <p>© Copyright 2019 Sun Xiao</p>
+</div>
+</body>
+</html>

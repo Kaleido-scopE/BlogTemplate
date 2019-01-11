@@ -1,0 +1,11 @@
+#content_passage p {
+    margin: 1% 0 1% 0;
+}
+#content_passage span {
+    float: right;
+    font-family: Cambria;
+    font-style: italic;
+}
+#content_passage_footer {
+    font-weight: bold;
+}
