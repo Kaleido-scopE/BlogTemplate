@@ -31,8 +31,8 @@
         <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.35" level="application_server_libraries" />
     <orderEntry type="library" name="mysql-connector-java-8.0.11" level="project" />
     <orderEntry type="library" name="json-lib-2.4-jdk15" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.37" level="application_server_libraries" />
   </component>
 </module>

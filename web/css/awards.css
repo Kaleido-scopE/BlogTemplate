@@ -1,3 +1,6 @@
+#content_passage h4 {
+    white-space: pre;
+}
 #content_passage span {
     font-weight: normal;
     font-size: 20px;

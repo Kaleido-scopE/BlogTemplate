@@ -18,7 +18,7 @@ public class DBConnector {
             con = DriverManager.getConnection(url, user, password);
 
             if (!con.isClosed())
-                System.out.println("DB Connecting Success!");
+                System.out.println("DB Connecting Success");
         } catch (Exception e) {
             e.printStackTrace();
         }

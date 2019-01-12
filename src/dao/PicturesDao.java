@@ -19,7 +19,7 @@ public class PicturesDao {
     public List<String> getAllYearByTel(String tel) throws Exception {
         List<String> resultList = new ArrayList<>();
         Statement stm = con.createStatement();
-        String sql = "select distinct pic_year from pic_content where tel='" + tel + "'";
+        String sql = "select distinct pic_year from pic_content where tel='" + tel + "' order by pic_year desc";
         ResultSet rs = stm.executeQuery(sql);
         System.out.println(sql);
 
