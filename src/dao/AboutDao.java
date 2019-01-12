@@ -1,6 +1,5 @@
 package dao;
 
-import config.DBConnector;
 import entity.AboutEntity;
 
 import java.sql.Connection;
@@ -50,20 +49,5 @@ public class AboutDao {
         stm.executeUpdate(insertSql);
         System.out.println(insertSql);
         stm.close();
-    }
-
-    public static void main(String[] args) {
-        try {
-            AboutDao dao = new AboutDao(DBConnector.createDBConnection());
-            AboutEntity aboutEntity = new AboutEntity();
-            aboutEntity.setTel("15526088820");
-            aboutEntity.setItemName("Major in");
-            aboutEntity.setItemContent("CS&T");
-            aboutEntity.setPriority(5);
-            dao.updateAboutItem(aboutEntity);
-            DBConnector.destroyDBConnection(dao.con);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/awards.css">
-    <script>
-        function transformInputBox() {
-            let input_box = document.getElementById("login_input_box");
-            let computedStyle = document.defaultView.getComputedStyle(input_box, null);
-            if (computedStyle.visibility === 'hidden')
-                input_box.style.visibility = 'visible';
-            else
-                input_box.style.visibility = 'hidden';
-        }
-    </script>
     <title>Awards - Lost Stars</title>
 </head>
 <body>
@@ -40,7 +30,7 @@
             </p>
         </div>
         <div id="login_input">
-            <p><a id="login_alink" href="#" onclick="transformInputBox()">LOG IN</a></p>
+            <p><a id="login_alink" href="#">LOG IN</a></p>
             <div id="login_input_box">
                 <span>TEL:</span>
                 <br/>
@@ -91,5 +81,6 @@
 <div id="footer">
     <p>© Copyright 2019 Sun Xiao</p>
 </div>
+<script src="js/common.js"></script>
 </body>
 </html>

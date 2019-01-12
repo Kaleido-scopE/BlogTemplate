@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "HomeServlet", urlPatterns = "/getHomeInfo", loadOnStartup = 1)
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "CommonServlet", urlPatterns = "/getCommonInfo")
+public class CommonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
