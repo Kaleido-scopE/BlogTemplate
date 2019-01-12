@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/home.css">
-    <script>
-        function transformInputBox() {
-            let input_box = document.getElementById("login_input_box");
-            let computedStyle = document.defaultView.getComputedStyle(input_box, null);
-            if (computedStyle.visibility === 'hidden')
-                input_box.style.visibility = 'visible';
-            else
-                input_box.style.visibility = 'hidden';
-        }
-    </script>
     <title>Home - Lost Stars</title>
 </head>
 <body>
@@ -31,7 +21,7 @@
             <span>HELLO!</span>
         </div>
         <div id="avatar_container">
-            <img src="img/avatar.jpg" alt="Avatar"/>
+            <img src="img/15526088820_avatar.jpg" alt="Avatar"/>
             <p>
                 We are all lost stars.
             </p>
@@ -40,7 +30,7 @@
             </p>
         </div>
         <div id="login_input">
-            <p><a id="login_alink" href="#" onclick="transformInputBox()">LOG IN</a></p>
+            <p><a id="login_alink" href="#">LOG IN</a></p>
             <div id="login_input_box">
                 <span>TEL:</span>
                 <br/>
@@ -74,7 +64,7 @@
     <div id="content_passage">
         <p>A Boring Man.</p>
         <p>Coding / Music / Film / Fiction / Photography / Music Game Player</p>
-        <img src="img/67.jpg" alt=""/>
+        <img src="img/15526088820_home.jpg" alt=""/>
         <p id="content_passage_footer">
             Good morning, and in case I don't see ya, good afternoon, good evening, and good night!
         </p>
@@ -86,5 +76,6 @@
 <div id="footer">
     <p>© Copyright 2019 Sun Xiao</p>
 </div>
+<script src="js/utils.js"></script>
 </body>
 </html>

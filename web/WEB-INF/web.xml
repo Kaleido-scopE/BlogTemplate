@@ -4,6 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--添加启动监听类-->
+    <listener>
+        <listener-class>config.ContextManager</listener-class>
+    </listener>
+
     <!--配置默认页面-->
     <welcome-file-list>
         <welcome-file>home.html</welcome-file>
