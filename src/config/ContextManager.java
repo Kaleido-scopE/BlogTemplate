@@ -3,9 +3,11 @@ package config;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.sql.Connection;
 
 //用于加载web.xml时进行初始操作
+@WebListener
 public class ContextManager implements ServletContextListener {
     //应用初始化前的操作，如打开数据库连接
     @Override

@@ -1,8 +1,10 @@
-//全局的用户名
-let defaultUserTel = "15526088820";
-let globalAjaxData = {
-    userTel: defaultUserTel
-};
+//加载页面时从后端获得包括头像在内的一系列公共信息
+function getCommonInfo() {
+    ajaxHttpRequest("POST", "/getCommonInfo", JSON.stringify(globalAjaxData), function (res) {
+        let resJSON = JSON.parse(res);
+        document.getElementById("avatar_img").src = resJSON.avatarPath;
+    });
+}
 
 //为LOG IN标签添加显隐登录窗口功能
 document.getElementById("login_alink").onclick = function () {
@@ -14,26 +16,31 @@ document.getElementById("login_alink").onclick = function () {
         input_box.style.visibility = "hidden";
 };
 
-//封装ajax请求
-function ajaxHttpRequest(method, url, data, callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
-    if (method === "POST")
-        xhr.send(data);
-    else
-        xhr.send();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200)
-            callback(xhr.responseText);
-    }
-}
+//初始时登录按钮不可点击，需要点击一次验证码按钮后才可以
+document.getElementById("login_button").disabled = true;
 
-//加载页面时从后端获得包括头像在内的一系列公共信息
-function getCommonInfo() {
-    ajaxHttpRequest("POST", "/getCommonInfo", JSON.stringify(globalAjaxData), function (res) {
-        let resJSON = JSON.parse(res);
-        document.getElementById("avatar_img").src = resJSON.avatarPath;
+//为获取验证码按钮添加点击事件
+document.getElementById("get_code_button").onclick = function () {
+    document.getElementById("login_button").disabled = false;
+    let data = {
+        inputtedTel : document.getElementById("tel").value
+    };
+    ajaxHttpRequest("POST", "/verify", JSON.stringify(data), function (res) {
+
     });
-}
+};
+
+//为登录按钮添加点击事件
+document.getElementById("login_button").onclick = function () {
+    let data = {
+        inputtedTel : document.getElementById("tel").value,
+        veriCode : document.getElementById("veri_code").value
+    };
+    ajaxHttpRequest("POST", "/login", JSON.stringify(data), function (res) {
+        let resJSON = JSON.parse(res);
+        if (resJSON.code === 1)
+            window.location.href = "/background.html";
+        else
+            alert(resJSON.status);
+    });
+};
