@@ -19,3 +19,11 @@ function ajaxHttpRequest(method, url, data, callback) {
             callback(xhr.responseText);
     }
 }
+
+//加载页面时从后端获得包括头像在内的一系列公共信息
+function getCommonInfo() {
+    ajaxHttpRequest("POST", "/getCommonInfo", JSON.stringify(globalAjaxData), function (res) {
+        let resJSON = JSON.parse(res);
+        document.getElementById("avatar_img").src = resJSON.avatarPath;
+    });
+}

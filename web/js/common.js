@@ -1,11 +1,3 @@
-//加载页面时从后端获得包括头像在内的一系列公共信息
-function getCommonInfo() {
-    ajaxHttpRequest("POST", "/getCommonInfo", JSON.stringify(globalAjaxData), function (res) {
-        let resJSON = JSON.parse(res);
-        document.getElementById("avatar_img").src = resJSON.avatarPath;
-    });
-}
-
 //为LOG IN标签添加显隐登录窗口功能
 document.getElementById("login_alink").onclick = function () {
     let input_box = document.getElementById("login_input_box");

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "CommonServlet", urlPatterns = "/getCommonInfo")
+@WebServlet(name = "CommonServlet", urlPatterns = "/getCommonInfo", loadOnStartup = 1)
 public class CommonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String JSONStr = Parser.getData(request);

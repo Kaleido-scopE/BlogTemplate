@@ -1,0 +1,40 @@
+input[type="button"] {
+    background: white;
+    border: 1px solid black;
+    font-weight: bold;
+    font-family: "Cambria", "宋体";
+}
+.submit_button {
+    margin-bottom: 2%;
+    font-size: 18px;
+}
+.add_button {
+    display: block;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 18px;
+}
+.keyValue_header {
+    float: left;
+    width: 46%;
+    font-weight: bold;
+}
+.input_wrapper {
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.key_text, .value_text {
+    width: 43.5%;
+    margin-right: 1em;
+}
+#home_wrapper {
+    text-align: center;
+}
+#home_wrapper textarea {
+    width: 96%;
+    height: 300px;
+    font-family: "Times New Roman", "宋体";
+    font-size: 18px;
+    resize: none;
+}

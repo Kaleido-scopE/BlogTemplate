@@ -14,21 +14,27 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-@WebServlet(name = "AwardsServlet", urlPatterns = "/getAwardsInfo")
+@WebServlet(name = "AwardsServlet", urlPatterns = {"/getAwardsInfo", "/setAwardsInfo"})
 public class AwardsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String JSONStr = Parser.getData(request);
-        JSONObject requestObject = JSONObject.fromObject(JSONStr);
-        String tel = requestObject.getString("userTel");
+        if (request.getServletPath().equals("/getAwardsInfo")) {
+            String JSONStr = Parser.getData(request);
+            JSONObject requestObject = JSONObject.fromObject(JSONStr);
+            String tel = requestObject.getString("userTel");
 
-        AwardsDao dao = new AwardsDao((Connection) getServletContext().getAttribute("Connection"));
-        try {
-            List<AwardsEntity> awardsList = dao.getAwardsEntityListByTel(tel);
-            JSONObject responseObject = new JSONObject();
-            responseObject.put("awardsList", awardsList);
-            Parser.sendRes(response, responseObject.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+            AwardsDao dao = new AwardsDao((Connection) getServletContext().getAttribute("Connection"));
+            try {
+                List<AwardsEntity> awardsList = dao.getAwardsEntityListByTel(tel);
+                JSONObject responseObject = new JSONObject();
+                responseObject.put("awardsList", awardsList);
+                Parser.sendRes(response, responseObject.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (request.getServletPath().equals("/setAwardsInfo")) {
+
         }
     }
 

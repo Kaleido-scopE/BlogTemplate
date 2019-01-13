@@ -14,21 +14,27 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-@WebServlet(name = "ExperienceServlet", urlPatterns = "/getExperienceInfo")
+@WebServlet(name = "ExperienceServlet", urlPatterns = {"/getExperienceInfo", "/setExperienceInfo"})
 public class ExperienceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String JSONStr = Parser.getData(request);
-        JSONObject requestObject = JSONObject.fromObject(JSONStr);
-        String tel = requestObject.getString("userTel");
+        if (request.getServletPath().equals("/getExperienceInfo")) {
+            String JSONStr = Parser.getData(request);
+            JSONObject requestObject = JSONObject.fromObject(JSONStr);
+            String tel = requestObject.getString("userTel");
 
-        ExperienceDao dao = new ExperienceDao((Connection) getServletContext().getAttribute("Connection"));
-        try {
-            List<ExperienceEntity> experienceList = dao.getExperienceEntityListByTel(tel);
-            JSONObject responseObject = new JSONObject();
-            responseObject.put("experienceList", experienceList);
-            Parser.sendRes(response, responseObject.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+            ExperienceDao dao = new ExperienceDao((Connection) getServletContext().getAttribute("Connection"));
+            try {
+                List<ExperienceEntity> experienceList = dao.getExperienceEntityListByTel(tel);
+                JSONObject responseObject = new JSONObject();
+                responseObject.put("experienceList", experienceList);
+                Parser.sendRes(response, responseObject.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (request.getServletPath().equals("/setExperienceInfo")) {
+
         }
     }
 

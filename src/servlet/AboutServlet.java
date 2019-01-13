@@ -14,22 +14,28 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-@WebServlet(name = "AboutServlet", urlPatterns = "/getAboutInfo")
+@WebServlet(name = "AboutServlet", urlPatterns = {"/getAboutInfo", "/setAboutInfo"})
 public class AboutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String JSONStr = Parser.getData(request);
-        JSONObject requestObject = JSONObject.fromObject(JSONStr);
-        String tel = requestObject.getString("userTel");
+        if (request.getServletPath().equals("/getAboutInfo")) {
+            String JSONStr = Parser.getData(request);
+            JSONObject requestObject = JSONObject.fromObject(JSONStr);
+            String tel = requestObject.getString("userTel");
 
-        AboutDao dao = new AboutDao((Connection) getServletContext().getAttribute("Connection"));
-        try {
-            List<AboutEntity> aboutList = dao.getAboutEntityListByTel(tel);
-            JSONObject responseObject = new JSONObject();
-            responseObject.put("aboutList", aboutList);
-            responseObject.put("aboutImgPath", "/img/" + tel + "_about.jpg");
-            Parser.sendRes(response, responseObject.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+            AboutDao dao = new AboutDao((Connection) getServletContext().getAttribute("Connection"));
+            try {
+                List<AboutEntity> aboutList = dao.getAboutEntityListByTel(tel);
+                JSONObject responseObject = new JSONObject();
+                responseObject.put("aboutList", aboutList);
+                responseObject.put("aboutImgPath", "/img/" + tel + "_about.jpg");
+                Parser.sendRes(response, responseObject.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (request.getServletPath().equals("/setAboutInfo")) {
+
         }
     }
 
