@@ -125,7 +125,14 @@ function loadHome() {
         let homeSubmit = createSubmitButton();
         homeSubmit.onclick = function () {
             //将此时的信息发送到后端存储
-            console.log(textarea.value);
+            let data = {
+                content: textarea.value
+            };
+            ajaxHttpRequest("POST", "/setHomeInfo", JSON.stringify(data), function (res) {
+                let setResJSON = JSON.parse(res);
+                let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                alert(alertStr);
+            });
         };
         homeWrapper.appendChild(homeSubmit);
 
@@ -169,7 +176,11 @@ function loadAbout() {
         aboutSubmit.onclick = function () {
             //将此时的信息发送到后端存储
             let data = loadKV();
-            console.log(data);
+            ajaxHttpRequest("POST", "/setAboutInfo", JSON.stringify(data), function (res) {
+                let setResJSON = JSON.parse(res);
+                let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                alert(alertStr);
+            });
         };
         flexContainer.appendChild(aboutSubmit);
         aboutWrapper.appendChild(flexContainer);
@@ -211,7 +222,11 @@ function loadExperience() {
         experienceSubmit.onclick = function () {
             //将此时的信息发送到后端存储
             let data = loadKV();
-            console.log(data);
+            ajaxHttpRequest("POST", "/setExperienceInfo", JSON.stringify(data), function (res) {
+                let setResJSON = JSON.parse(res);
+                let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                alert(alertStr);
+            });
         };
         experienceWrapper.appendChild(experienceSubmit);
 
@@ -252,7 +267,11 @@ function loadAwards() {
         awardsSubmit.onclick = function () {
             //将此时的信息发送到后端存储
             let data = loadKV();
-            console.log(data);
+            ajaxHttpRequest("POST", "/setAwardsInfo", JSON.stringify(data), function (res) {
+                let setResJSON = JSON.parse(res);
+                let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                alert(alertStr);
+            });
         };
         awardsWrapper.appendChild(awardsSubmit);
 
@@ -297,4 +316,9 @@ window.onload = function () {
         clearContentPassage();
         loadPictures();
     };
+
+    //为返回按钮添加点击事件
+    document.getElementById("back_button").onclick = function () {
+        window.location.href = "/";
+    }
 };

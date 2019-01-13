@@ -37,17 +37,24 @@ public class AboutDao {
         return resultList;
     }
 
-    //根据传入的entity新增或删除记录
-    public void updateAboutItem(AboutEntity entity) throws Exception {
+    //删除指定用户的所有记录
+    public void deleteAllItemByTel(String tel) throws Exception {
         Statement stm = con.createStatement();
-        String delSql = "delete from about_content where tel='" + entity.getTel() + "' and item_name='" + entity.getItemName() + "'";
-        String insertSql = "insert into about_content (tel, item_name, item_content, priority) values " +
+        String sql = "delete from about_content";
+
+        stm.executeUpdate(sql);
+        System.out.println(sql);
+        stm.close();
+    }
+
+    //根据传入的entity新增记录
+    public void insertAboutItem(AboutEntity entity) throws Exception {
+        Statement stm = con.createStatement();
+        String sql = "insert into about_content (tel, item_name, item_content, priority) values " +
                 "('" + entity.getTel() + "', '" + entity.getItemName() + "', '" + entity.getItemContent() + "','" + entity.getPriority() + "')";
 
-        stm.executeUpdate(delSql);
-        System.out.println(delSql);
-        stm.executeUpdate(insertSql);
-        System.out.println(insertSql);
+        stm.executeUpdate(sql);
+        System.out.println(sql);
         stm.close();
     }
 }

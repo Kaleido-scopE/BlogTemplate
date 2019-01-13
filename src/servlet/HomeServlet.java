@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -35,7 +36,36 @@ public class HomeServlet extends HttpServlet {
         }
 
         if (request.getServletPath().equals("/setHomeInfo")) {
-            
+            String JSONStr = Parser.getData(request);
+            JSONObject requestObject = JSONObject.fromObject(JSONStr);
+            String content = requestObject.getString("content");
+
+            JSONObject responseObject = new JSONObject();
+            responseObject.put("code", -1);
+            responseObject.put("status", "Unknown Error!");
+
+            //首先判断Session中是否有当前登录的用户
+            HttpSession session = request.getSession();
+            String currentUserTel = (String) session.getAttribute("currentUserTel");
+
+            //如果session对象是新的，或session中没有电话属性则返回设置失败信息
+            if (session.isNew() || currentUserTel == null) {
+                responseObject.put("code", 0);
+                responseObject.put("status", "Illegal Request!");
+            }
+            else //否则将content存入数据库
+                try {
+                    HomeDao dao = new HomeDao((Connection) getServletContext().getAttribute("Connection"));
+                    HomeEntity entity = new HomeEntity();
+                    entity.setTel(currentUserTel);
+                    entity.setContent(content);
+                    dao.updateHomeContent(entity);
+                    responseObject.put("code", 1);
+                    responseObject.put("status", "Success!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            Parser.sendRes(response, responseObject.toString());
         }
     }
 

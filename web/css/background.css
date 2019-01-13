@@ -28,6 +28,10 @@ input[type="button"] {
     width: 43.5%;
     margin-right: 1em;
 }
+#back_button {
+    margin-top: 3%;
+    font-size: 22px;
+}
 #home_wrapper {
     text-align: center;
 }

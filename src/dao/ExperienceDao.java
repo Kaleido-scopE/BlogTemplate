@@ -37,18 +37,24 @@ public class ExperienceDao {
         return resultList;
     }
 
-    //根据传入的entity新增或删除记录
-    public void updateExperienceItem(ExperienceEntity entity) throws Exception {
+    //删除指定用户的所有记录
+    public void deleteAllItemByTel(String tel) throws Exception {
         Statement stm = con.createStatement();
-        String delSql = "delete from exp_content where tel='" + entity.getTel() +"' and item_title='" + entity.getItemTitle() +
-                "' and item_content='" + entity.getItemContent() + "'";
-        String insertSql = "insert into exp_content (tel, item_title, item_content, priority) values " +
+        String sql = "delete from exp_content";
+
+        stm.executeUpdate(sql);
+        System.out.println(sql);
+        stm.close();
+    }
+
+    //根据传入的entity新增记录
+    public void insertExperienceItem(ExperienceEntity entity) throws Exception {
+        Statement stm = con.createStatement();
+        String sql = "insert into exp_content (tel, item_title, item_content, priority) values " +
                 "('" + entity.getTel() + "', '" + entity.getItemTitle() + "', '" + entity.getItemContent() + "','" + entity.getPriority() + "')";
 
-        stm.executeUpdate(delSql);
-        System.out.println(delSql);
-        stm.executeUpdate(insertSql);
-        System.out.println(insertSql);
+        stm.executeUpdate(sql);
+        System.out.println(sql);
         stm.close();
     }
 }
