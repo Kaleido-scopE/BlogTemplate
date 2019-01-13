@@ -67,7 +67,7 @@ public class AwardsServlet extends HttpServlet {
                         dao.insertAwardsItem(entity);
                     }
                     responseObject.put("code", 1);
-                    responseObject.put("status", "Success!");
+                    responseObject.put("status", "Set Awards Info Successfully!");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

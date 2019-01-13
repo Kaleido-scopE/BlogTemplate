@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet(name = "HomeServlet", urlPatterns = {"/getHomeInfo", "/setHomeInfo"}, loadOnStartup = 1)
+@WebServlet(name = "HomeServlet", urlPatterns = {"/getHomeInfo", "/setHomeInfo", "/setHomeImg"}, loadOnStartup = 1)
 public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getServletPath().equals("/getHomeInfo")) {
@@ -61,7 +61,32 @@ public class HomeServlet extends HttpServlet {
                     entity.setContent(content);
                     dao.updateHomeContent(entity);
                     responseObject.put("code", 1);
-                    responseObject.put("status", "Success!");
+                    responseObject.put("status", "Set Home Info Successfully!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            Parser.sendRes(response, responseObject.toString());
+        }
+
+        if (request.getServletPath().equals("/setHomeImg")) {
+            JSONObject responseObject = new JSONObject();
+            responseObject.put("code", -1);
+            responseObject.put("status", "Unknown Error!");
+
+            //首先判断Session中是否有当前登录的用户
+            HttpSession session = request.getSession();
+            String currentUserTel = (String) session.getAttribute("currentUserTel");
+
+            //如果session对象是新的，或session中没有电话属性则返回设置失败信息
+            if (session.isNew() || currentUserTel == null) {
+                responseObject.put("code", 0);
+                responseObject.put("status", "Illegal Request!");
+            }
+            else //将主页图片存到img下
+                try {
+                    Parser.saveFile(request, "/img/", currentUserTel + "_home.jpg");
+                    responseObject.put("code", 1);
+                    responseObject.put("status", "Set Home Image Successfully!");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

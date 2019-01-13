@@ -25,16 +25,24 @@ public class LoginServlet extends HttpServlet {
         responseObject.put("code", -1);
         responseObject.put("status", "Unknown Error!");
         UserDao dao = new UserDao((Connection) getServletContext().getAttribute("Connection"));
+        HttpSession session = request.getSession();
+        String sessionVeriCode = (String) session.getAttribute("verificationCode");
 
         //检查用户是否存在
         try {
             if (dao.isUserExist(tel)) {
-                responseObject.put("code", 1);
-                responseObject.put("status", "Login Successfully!");
+                //检查验证码是否正确
+                if (sessionVeriCode.equals(verificationCode)){
+                    responseObject.put("code", 1);
+                    responseObject.put("status", "Login Successfully!");
 
-                //将tel放入Session，用于后台管理时使用
-                HttpSession session = request.getSession();
-                session.setAttribute("currentUserTel", tel);
+                    //将tel放入Session，用于后台管理时使用
+                    session.setAttribute("currentUserTel", tel);
+                }
+                else {
+                    responseObject.put("code", 0);
+                    responseObject.put("status", "The verification code you input is wrong!");
+                }
             }
             else {
                 responseObject.put("code", 0);

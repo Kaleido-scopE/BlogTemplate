@@ -1,3 +1,7 @@
+//分别用于保存Home和About页中选择的图片文件
+let homeImgSelectedFile = null;
+let aboutImgSelectedFile = null;
+
 //清除content_passage的所有子节点
 function clearContentPassage() {
     let contentPassage = document.getElementById("content_passage");
@@ -97,6 +101,34 @@ function loadKV() {
     return loadData;
 }
 
+//获得选定文件的路径，用于更新img标签的src
+function getFileURL(file) {
+    let url = null ;
+    if (window.createObjectURL !== undefined) {
+        url = window.createObjectURL(file) ;
+    } else if (window.URL !== undefined) {
+        url = window.URL.createObjectURL(file) ;
+    } else if (window.webkitURL !== undefined) {
+        url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url;
+}
+
+//创建File Browser选择文件，当选择的文件满足大小限制后调用elseCall
+function createFileBrowser(elseCall) {
+    let fileBrowser = document.createElement("input");
+    fileBrowser.type = "file";
+    fileBrowser.accept = "image/jpg";
+    fileBrowser.onchange = function () {
+        let selectedFile = fileBrowser.files[0];
+        if (selectedFile.size > 1048576) //选择的图片大于1MB弹出拒绝信息
+            alert("Please select a jpg file smaller than 1MB!");
+        else //将文件传给回调函数
+            elseCall(selectedFile);
+    };
+    fileBrowser.click();
+}
+
 //加载主页设置页面
 function loadHome() {
     document.getElementById("config_header").innerText = "HOME";
@@ -119,6 +151,13 @@ function loadHome() {
         let homeImg = document.createElement("img");
         homeImg.src = resJSON.homeImgPath;//加载图片路径
         homeImg.alt = "Home";
+        //为图片设置点击事件，用于更新
+        homeImg.onclick = function () {
+            createFileBrowser(function (selectedFile) {
+                homeImg.src = getFileURL(selectedFile);
+                homeImgSelectedFile = selectedFile;
+            });
+        };
         homeWrapper.appendChild(homeImg);
 
         //创建提交按钮
@@ -133,6 +172,19 @@ function loadHome() {
                 let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
                 alert(alertStr);
             });
+            //同时检查图片是否被更改，若是，则提交到后端
+            if (homeImgSelectedFile !== null) {
+                let formData = new FormData();
+                formData.append("file", homeImgSelectedFile);
+
+                ajaxHttpRequest("POST", "/setHomeImg", formData, function (res) {
+                    let setResJSON = JSON.parse(res);
+                    let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                    alert(alertStr);
+                });
+
+                homeImgSelectedFile = null;
+            }
         };
         homeWrapper.appendChild(homeSubmit);
 
@@ -167,6 +219,13 @@ function loadAbout() {
         let aboutImg = document.createElement("img");
         aboutImg.src = resJSON.aboutImgPath;//加载图片路径
         aboutImg.alt = "About";
+        //为图片设置点击事件，用于更新
+        aboutImg.onclick = function () {
+            createFileBrowser(function (selectedFile) {
+                aboutImg.src = getFileURL(selectedFile);
+                aboutImgSelectedFile = selectedFile;
+            });
+        };
         aboutWrapper.appendChild(aboutImg);
 
         //创建包裹按钮的Flex容器和提交按钮
@@ -181,6 +240,19 @@ function loadAbout() {
                 let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
                 alert(alertStr);
             });
+            //同时检查图片是否被更改，若是，则提交到后端
+            if (aboutImgSelectedFile !== null) {
+                let formData = new FormData();
+                formData.append("file", aboutImgSelectedFile);
+
+                ajaxHttpRequest("POST", "/setAboutImg", formData, function (res) {
+                    let setResJSON = JSON.parse(res);
+                    let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                    alert(alertStr);
+                });
+
+                aboutImgSelectedFile = null;
+            }
         };
         flexContainer.appendChild(aboutSubmit);
         aboutWrapper.appendChild(flexContainer);
@@ -320,5 +392,21 @@ window.onload = function () {
     //为返回按钮添加点击事件
     document.getElementById("back_button").onclick = function () {
         window.location.href = "/";
+    };
+
+    //为头像设置点击事件，打开文件浏览器
+    document.getElementById("avatar_img").onclick = function () {
+        createFileBrowser(function (selectedFile) {
+            let formData = new FormData();
+            formData.append("file", selectedFile);
+
+            ajaxHttpRequest("POST", "/setAvatar", formData, function (res) {
+                let setResJSON = JSON.parse(res);
+                let alertStr = "Code: " + setResJSON.code + "\nStatus: " + setResJSON.status;
+                alert(alertStr);
+                if (setResJSON.code === 1) //上传成功时才更改显示
+                    document.getElementById("avatar_img").src = getFileURL(selectedFile);
+            });
+        });
     }
 };

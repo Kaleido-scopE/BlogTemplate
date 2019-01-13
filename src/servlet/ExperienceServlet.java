@@ -67,7 +67,7 @@ public class ExperienceServlet extends HttpServlet {
                         dao.insertExperienceItem(entity);
                     }
                     responseObject.put("code", 1);
-                    responseObject.put("status", "Success!");
+                    responseObject.put("status", "Set Experience Info Successfully!");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

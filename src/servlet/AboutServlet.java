@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-@WebServlet(name = "AboutServlet", urlPatterns = {"/getAboutInfo", "/setAboutInfo"})
+@WebServlet(name = "AboutServlet", urlPatterns = {"/getAboutInfo", "/setAboutInfo", "/setAboutImg"})
 public class AboutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getServletPath().equals("/getAboutInfo")) {
@@ -68,7 +68,32 @@ public class AboutServlet extends HttpServlet {
                         dao.insertAboutItem(entity);
                     }
                     responseObject.put("code", 1);
-                    responseObject.put("status", "Success!");
+                    responseObject.put("status", "Set About Info Successfully!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            Parser.sendRes(response, responseObject.toString());
+        }
+
+        if (request.getServletPath().equals("/setAboutImg")) {
+            JSONObject responseObject = new JSONObject();
+            responseObject.put("code", -1);
+            responseObject.put("status", "Unknown Error!");
+
+            //首先判断Session中是否有当前登录的用户
+            HttpSession session = request.getSession();
+            String currentUserTel = (String) session.getAttribute("currentUserTel");
+
+            //如果session对象是新的，或session中没有电话属性则返回设置失败信息
+            if (session.isNew() || currentUserTel == null) {
+                responseObject.put("code", 0);
+                responseObject.put("status", "Illegal Request!");
+            }
+            else //将个人图片存到img下
+                try {
+                    Parser.saveFile(request, "/img/", currentUserTel + "_about.jpg");
+                    responseObject.put("code", 1);
+                    responseObject.put("status", "Set About Image Successfully!");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
