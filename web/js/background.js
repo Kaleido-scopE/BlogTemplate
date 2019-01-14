@@ -508,6 +508,9 @@ window.onload = function () {
     //为返回按钮添加点击事件
     document.getElementById("back_button").onclick = function () {
         window.location.href = "/";
+
+        //返回后请求注销session
+        ajaxHttpRequest("POST", "/invalidateSession", "");
     };
 
     //为头像设置点击事件，打开文件浏览器

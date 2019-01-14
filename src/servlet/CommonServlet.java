@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "CommonServlet", urlPatterns = {"/getCommonInfo", "/setAvatar"}, loadOnStartup = 1)
+@WebServlet(name = "CommonServlet", urlPatterns = {"/getCommonInfo", "/setAvatar", "/invalidateSession"}, loadOnStartup = 1)
 public class CommonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getServletPath().equals("/getCommonInfo")) {
@@ -47,6 +47,13 @@ public class CommonServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             Parser.sendRes(response, responseObject.toString());
+        }
+
+        if (request.getServletPath().equals("/invalidateSession")) {
+            //使Session中号码字段失效
+            HttpSession session = request.getSession();
+            session.setAttribute("currentUserTel", null);
+            Parser.sendRes(response, "");
         }
     }
 

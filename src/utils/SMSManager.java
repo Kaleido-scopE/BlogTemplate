@@ -21,11 +21,12 @@ public class SMSManager {
 
         CCPRestSDK restAPI = new CCPRestSDK();
         restAPI.init("app.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
-        restAPI.setAccount("8aaf07086812057f016844bfcf0f17fa", "f884b207cdc44477b7632102a752e20c");// 初始化主帐号和主帐号TOKEN
-        restAPI.setAppId("8aaf07086812057f016844bfcf5e1800");// 初始化应用ID
+        restAPI.setAccount("8a216da86812593601684b043b8219a1", "de612d08507d4f6689a410449070623d");// 初始化主帐号和主帐号TOKEN
+        restAPI.setAppId("8a216da86812593601684b043bd419a7");// 初始化应用ID
         HashMap<String, Object> result = restAPI.sendTemplateSMS(targetTel,"1" ,new String[]{verificationCode, validTime});
 
         System.out.println("SDKTestSendTemplateSMS result=" + result);
+        System.out.println(verificationCode);
         return verificationCode;
     }
 
