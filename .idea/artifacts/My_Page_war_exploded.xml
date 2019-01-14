@@ -22,6 +22,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/httpclient.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/dom4j-1.6.1.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/log4j-1.2.17.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/CCP_REST_SMS_SDK_JAVA_v2.6.3r.jar" />
         </element>
       </element>
     </root>
