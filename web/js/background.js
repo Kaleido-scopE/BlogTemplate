@@ -355,11 +355,127 @@ function loadAwards() {
 //加载图片墙设置页面
 function loadPictures() {
     document.getElementById("config_header").innerText = "PICTURES";
-    // ajaxHttpRequest("POST", "/getPictures", JSON.stringify(globalAjaxData), function (res) {
-    //     let resJSON = JSON.parse(res);
-    //     let contentPassage = document.getElementById("content_passage");
-    //
-    // });
+
+    //创建水平分隔线并返回
+    function createHorizontalDivider() {
+        let horizontalDivider = document.createElement("div");
+        horizontalDivider.className = "horizontal_divider";
+        return horizontalDivider;
+    }
+
+    //创建居中容器并返回
+    function createFlexContainer() {
+        let flexContainer = document.createElement("div");
+        flexContainer.className = "flex_container";
+        return flexContainer;
+    }
+
+    //创建浮动清除器并返回
+    function createFloatClearer() {
+        let floatClearer = document.createElement("div");
+        floatClearer.className = "float_clearer";
+        return floatClearer;
+    }
+
+    //创建指定value和点击回调的Button并返回
+    function createButtonWithValueAndCallback(btnValue, callback) {
+        let button = document.createElement("input");
+        button.type = "button";
+        button.value = btnValue;
+        button.onclick = callback;
+        return button;
+    }
+
+    //创建指定title的wrapper
+    function createTitleWrapper(title) {
+        let titleWrapper = document.createElement("div");
+        titleWrapper.className = "title_wrapper";
+
+        //创建title文本
+        let span = document.createElement("span");
+        let spanText = document.createTextNode(title);
+        span.appendChild(spanText);
+
+        //创建删除按钮
+        let delButton = createButtonWithValueAndCallback("DEL", function () {
+            //TODO
+        });
+
+        let floatClearer = createFloatClearer();
+
+        titleWrapper.appendChild(span);
+        titleWrapper.appendChild(delButton);
+        titleWrapper.appendChild(floatClearer);
+        return titleWrapper;
+    }
+
+    ajaxHttpRequest("POST", "/getPictures", JSON.stringify(globalAjaxData), function (res) {
+        let resJSON = JSON.parse(res);
+        let contentPassage = document.getElementById("content_passage");
+        let spanHead = "Pieces of ";
+
+        for (let i = 0; i< resJSON.length; i++) {
+            //创建某一年的块
+            let yearWrapper = document.createElement("div");
+            yearWrapper.className = "year_wrapper";
+
+            //创建Header
+            let header = createTitleWrapper(spanHead + resJSON[i].year);
+            yearWrapper.appendChild(header);
+            yearWrapper.appendChild(createHorizontalDivider());
+
+            for (let j = 0; j < resJSON[i].pathList.length; j++) {
+                //创建图片
+                let img = document.createElement("img");
+                img.src = resJSON[i].pathList[j];
+                img.alt = "Picture";
+                yearWrapper.appendChild(img);
+
+                //创建操作按钮
+                let cdFlexContainer = createFlexContainer();
+                let changePicButton = createButtonWithValueAndCallback("CHANGE", function () {
+                    //TODO
+                });
+                changePicButton.className = "switch_button";
+                let delPicButton = createButtonWithValueAndCallback("DEL", function () {
+                   //TODO
+                });
+                delPicButton.className = "switch_button";
+                cdFlexContainer.appendChild(changePicButton);
+                cdFlexContainer.appendChild(delPicButton);
+                yearWrapper.appendChild(cdFlexContainer);
+            }
+
+            //在YearWrapper底部创建新增图片和提交图片按钮
+            let addPicButton = createButtonWithValueAndCallback("ADD A PICTURE", function () {
+
+            });
+            addPicButton.className = "add_pic_button";
+            let submitPicButton = createButtonWithValueAndCallback("SUBMIT", function () {
+
+            });
+            submitPicButton.className = "submit_pic_button";
+            yearWrapper.appendChild(addPicButton);
+            yearWrapper.appendChild(submitPicButton);
+            yearWrapper.appendChild(createFloatClearer());
+
+            //将本年度图片加入Content
+            contentPassage.appendChild(yearWrapper);
+        }
+
+        //在底部创建添加年份按钮
+        contentPassage.appendChild(createHorizontalDivider());
+
+        let picBottomFlex = createFlexContainer();
+        picBottomFlex.id = "pic_bottom_flex";
+
+        let newYearButton = createButtonWithValueAndCallback("ADD A NEW YEAR", function () {
+            //TODO
+        });
+
+        picBottomFlex.appendChild(newYearButton);
+        contentPassage.appendChild(picBottomFlex);
+    });
 }
 
 //加载页面时获取头像信息及主页信息
