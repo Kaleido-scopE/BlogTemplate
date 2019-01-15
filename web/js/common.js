@@ -1,5 +1,3 @@
-//当前验证码
-let currentCode = null;
 //当前验证码是否过期
 let isExpired = false;
 
@@ -30,8 +28,6 @@ document.getElementById("get_code_button").onclick = function () {
             inputtedTel: telValue
         };
         ajaxHttpRequest("POST", "/verify", JSON.stringify(data), function (res) {
-            let resJSON = JSON.parse(res);
-            currentCode = resJSON.code;
             isExpired = false;
         });
 
@@ -56,7 +52,7 @@ document.getElementById("login_button").onclick = function () {
         inputtedTel : document.getElementById("tel").value,
         veriCode : document.getElementById("veri_code").value
     };
-    if (currentCode === data.veriCode && isExpired)
+    if (isExpired)
         alert("The verification code has expired!");
     else
         ajaxHttpRequest("POST", "/login", JSON.stringify(data), function (res) {

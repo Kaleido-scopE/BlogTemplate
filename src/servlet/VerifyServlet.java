@@ -26,10 +26,7 @@ public class VerifyServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("verificationCode", verificationCode);
 
-        //写回验证码，用于前端时间控制
-        JSONObject responseObject = new JSONObject();
-        responseObject.put("code", verificationCode);
-        Parser.sendRes(response, responseObject.toString());
+        Parser.sendRes(response, "");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
